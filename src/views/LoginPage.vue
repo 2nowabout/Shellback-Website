@@ -39,7 +39,7 @@
                 style="letter-spacing: 5px"
               ></v-text-field>
               <v-btn
-                @click="checkCode()"
+                @click="login()"
                 height="50px"
                 elevation="0"
                 width="100%"
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 export default {
   name: "Login",
   mounted() {
@@ -70,13 +71,16 @@ export default {
   methods: {
     login() {
       // Validate code and set variable that authenticated is true
+      Vue.axios
+        .post("http://localhost:8002/login", {
+          Username: "tester",
+          Password: "Shellback123!",
+          Email: "test@email.com",
+        })
+        .then(function (response) {
+          console.log(response);
+        });
       this.$router.push("/home");
-    },
-    checkCode() {
-      if (this.$store.getters.getCode == this.code) {
-        this.$store.commit("succesfullCode");
-        this.login();
-      }
     },
   },
   computed: {
