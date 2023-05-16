@@ -6,17 +6,20 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     jwtToken: null,
-    user: {
-      username: null,
-      email: null,
-    },
-
     employerWait: true,
   },
   getters: {
     getCode: (state) => state.logincode,
+    getToken: (state) => state.jwtToken,
   },
-  mutations: {},
+  mutations: {
+    setToken(state, token) {
+      state.jwtToken = token;
+    },
+    logOut(state) {
+      state.jwtToken = null;
+    },
+  },
   actions: {},
   modules: {},
 });

@@ -19,25 +19,35 @@
             </h1>
           </v-col>
           <v-col cols="12" class="align-center">
-            <v-form>
+            <v-form ref="userinfo">
               <v-text-field
                 filled
                 label="Username"
-                v-model="code"
+                v-model="userinfo.username"
                 single-line
                 required
                 prepend-inner-icon="mdi-account"
                 style="letter-spacing: 5px"
+                :rules="[rules.required]"
               ></v-text-field>
               <v-text-field
                 filled
                 label="Password"
-                v-model="code"
+                v-model="userinfo.password"
+                type="password"
                 single-line
                 required
                 prepend-inner-icon="mdi-lock"
                 style="letter-spacing: 5px"
+                :rules="[rules.required, rules.checkresponse]"
               ></v-text-field>
+              <v-alert
+                :value="error"
+                color="red"
+                type="error"
+                transition="scale-transition"
+                >This login is incorrect!</v-alert
+              >
               <v-btn
                 @click="login()"
                 height="50px"
@@ -58,29 +68,43 @@
 import Vue from "vue";
 export default {
   name: "Login",
-  mounted() {
-    console.log("generating login code as test");
-    this.$store.commit("registercode", "testcode123");
-  },
   data() {
     return {
-      code: null,
+      statuscode: null,
+      error: false,
+      userinfo: {
+        username: null,
+        password: null,
+      },
+      rules: {
+        required: (value) => !!value || "Required.",
+        checkresponse:
+          this.statuscode == null ||
+          this.statuscode == 200 ||
+          "Login not found",
+      },
     };
   },
   components: {},
   methods: {
-    login() {
+    async login() {
+      this.error = false;
+      let comp = this;
       // Validate code and set variable that authenticated is true
-      Vue.axios
+      await Vue.axios
         .post("http://localhost:8002/login", {
-          Username: "tester",
-          Password: "Shellback123!",
-          Email: "test@email.com",
+          Username: this.userinfo.username,
+          Password: this.userinfo.password,
         })
         .then(function (response) {
-          console.log(response);
+          if (response.status == 200) {
+            comp.$store.commit("setToken", response.data.token);
+            comp.$router.push("/home");
+          }
+        })
+        .catch(function () {
+          comp.error = true;
         });
-      this.$router.push("/home");
     },
   },
   computed: {

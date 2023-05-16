@@ -17,11 +17,17 @@ const routes = [
     path: "/home",
     name: "Home",
     component: HomePage,
+    meta: {
+      requireToken: true,
+    },
   },
   {
     path: "/settings",
     name: "Settings",
     component: SettingsPage,
+    meta: {
+      requireToken: true,
+    },
   },
 ];
 
@@ -31,8 +37,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requireRole) {
-    if (!store.getters.getSuccesfullLogin) {
+  if (to.meta.requireToken) {
+    if (store.getters.getToken == null) {
       next({ name: "Login" });
     } else {
       next();

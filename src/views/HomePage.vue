@@ -16,6 +16,7 @@
           ></v-text-field>
         </v-card-title>
         <v-data-table
+          ref="vuetable"
           :headers="headers"
           :items="items"
           :search="search"
@@ -27,11 +28,56 @@
 </template>
 
 <script>
+import Vue from "vue";
 import SideBar from "../components/SideBar.vue";
 export default {
   components: { SideBar },
 
-  mounted: {},
+  mounted() {
+    let comp = this;
+    Vue.axios.defaults.headers.common["Authorization"] =
+      `Bearer ` + this.$store.getters.getToken;
+    Vue.axios
+      .get("http://localhost:8002/getCompanies")
+      .then(function (response) {
+        if (response.status == 200) {
+          let genitems = response.data;
+          genitems.forEach((item) => {
+            const date = new Date(item.startdate);
+            item.startdate = date.toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            });
+            const oldTime = new Date(item.lastactive);
+            const currentTime = new Date();
+            const timeDifference = currentTime - oldTime;
+            const timeDifferenceInMinutes = timeDifference / (1000 * 60);
+            if (timeDifferenceInMinutes > 2) {
+              item.status = false;
+            } else {
+              item.status = true;
+            }
+            Vue.axios
+              .get(
+                "http://localhost:8002/getCompany/notificationAmount/" +
+                  item.ipadress
+              )
+              .then(function (response) {
+                item.notifications = response.data;
+              });
+          });
+          genitems.forEach((item) => {
+            console.log(item);
+          });
+          comp.items = genitems;
+        }
+      })
+      .catch((error) => {
+        console.log("error = " + error);
+      });
+  },
+  methods: {},
   data() {
     return {
       search: "",
@@ -39,26 +85,13 @@ export default {
         {
           text: "Company",
           align: "start",
-          value: "companyName",
+          value: "companyname",
         },
         { text: "Status", value: "status", filterable: false },
         { text: "Notifications", value: "notifications", filterable: false },
-        { text: "Start Date", value: "startDate", filterable: false },
+        { text: "Start Date", value: "startdate", filterable: false },
       ],
-      items: [
-        {
-          companyName: "test",
-          status: "test",
-          notifications: "test",
-          startDate: "test",
-        },
-        {
-          companyName: "test2",
-          status: "test2",
-          notifications: "test2",
-          startDate: "test2",
-        },
-      ],
+      items: [],
     };
   },
 };
