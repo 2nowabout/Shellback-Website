@@ -11,6 +11,7 @@ export default new Vuetify({
         background: "#FFFFFF",
         switch: "#4588ed",
         card: "#F5F5F5",
+        card2: "#F5F5F5",
         cardtext: "#2F69C0",
       },
       dark: {
@@ -18,6 +19,7 @@ export default new Vuetify({
         background: "#1E2E3D",
         switch: "#1E2E3D",
         card: "#273444",
+        card2: "#0e1012",
         cardtext: "#B1B1B1",
       },
     },

@@ -17,6 +17,7 @@
         </v-card-title>
         <v-data-table
           ref="vuetable"
+          @click:row="handleClick"
           :headers="headers"
           :items="items"
           :search="search"
@@ -65,19 +66,24 @@ export default {
               )
               .then(function (response) {
                 item.notifications = response.data;
+                comp.items = genitems;
               });
           });
           genitems.forEach((item) => {
             console.log(item);
           });
-          comp.items = genitems;
         }
       })
       .catch((error) => {
         console.log("error = " + error);
       });
   },
-  methods: {},
+  methods: {
+    handleClick(value) {
+      this.$store.commit("setCompany", value.companyname, value.ipadress);
+      this.$router.push("/notifications");
+    },
+  },
   data() {
     return {
       search: "",

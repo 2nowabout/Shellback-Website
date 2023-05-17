@@ -26,27 +26,23 @@
     <v-divider></v-divider>
 
     <v-list nav dense>
-      <v-list-item link>
+      <v-list-item link @click="toCompanyPage()">
         <v-list-item-icon>
           <v-icon>mdi-domain</v-icon>
         </v-list-item-icon>
-        <v-list-item-title @click="toCompanyPage()"
-          >Companies</v-list-item-title
-        >
+        <v-list-item-title>Companies</v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link @click="toSettingsPage()">
         <v-list-item-icon>
           <v-icon>mdi-cog-outline</v-icon>
         </v-list-item-icon>
-        <v-list-item-title @click="toSettingsPage()"
-          >Settings</v-list-item-title
-        >
+        <v-list-item-title>Settings</v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link @click="doLogout()">
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-icon>
-        <v-list-item-title @click="doLogout()">Logout</v-list-item-title>
+        <v-list-item-title>Logout</v-list-item-title>
       </v-list-item>
       <v-list-item style="position: absolute; bottom: 0">
         <v-icon>mdi-theme-light-dark</v-icon>

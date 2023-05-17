@@ -4,6 +4,7 @@ import store from "../store";
 import LoginPage from "../views/LoginPage.vue";
 import HomePage from "../views/HomePage.vue";
 import SettingsPage from "../views/SettingsPage.vue";
+import NotificationsPage from "../views/NotificationsPage.vue";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,14 @@ const routes = [
     path: "/settings",
     name: "Settings",
     component: SettingsPage,
+    meta: {
+      requireToken: true,
+    },
+  },
+  {
+    path: "/notifications",
+    name: "Notifications",
+    component: NotificationsPage,
     meta: {
       requireToken: true,
     },
