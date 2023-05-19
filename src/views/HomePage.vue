@@ -80,7 +80,8 @@ export default {
   },
   methods: {
     handleClick(value) {
-      this.$store.commit("setCompany", value.companyname, value.ipadress);
+      this.$store.commit("setCompany", value);
+      console.log("value is: " + value);
       this.$router.push("/notifications");
     },
   },

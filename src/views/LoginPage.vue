@@ -32,6 +32,7 @@
                 required
                 prepend-inner-icon="mdi-account"
                 style="letter-spacing: 5px; width: 30vw; margin: auto"
+                @keyup.enter="login()"
                 :rules="[rules.required]"
               ></v-text-field>
               <v-text-field

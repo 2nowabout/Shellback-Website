@@ -24,9 +24,10 @@ export default new Vuex.Store({
     logOut(state) {
       state.jwtToken = null;
     },
-    setCompany(state, companyname, ipadress) {
-      state.chosenCompany.companyname = companyname;
-      state.chosenCompany.ipadress = ipadress;
+    setCompany(state, value) {
+      console.log("STORE IS STORING: " + value.ipadress);
+      state.chosenCompany.companyname = value.companyname;
+      state.chosenCompany.ipadress = value.ipadress;
     },
   },
   actions: {},
