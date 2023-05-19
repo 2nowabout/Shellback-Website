@@ -39,7 +39,9 @@
                 filled
                 label="Password"
                 v-model="userinfo.password"
-                type="password"
+                :append-icon="passVis ? 'mdi-eye-off' : 'mdi-eye'"
+                @click:append="() => (passVis = !passVis)"
+                :type="passVis ? 'password' : 'text'"
                 single-line
                 required
                 prepend-inner-icon="mdi-lock"
@@ -77,6 +79,7 @@ export default {
   name: "Login",
   data() {
     return {
+      passVis: String,
       statuscode: null,
       error: false,
       userinfo: {

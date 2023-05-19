@@ -49,6 +49,9 @@
                     required
                     v-model="RegisterInfo.Password"
                     :rules="[rules.required]"
+                    :append-icon="newUserVis ? 'mdi-eye-off' : 'mdi-eye'"
+                    @click:append="() => (newUserVis = !newUserVis)"
+                    :type="newUserVis ? 'password' : 'text'"
                     hide-details
                     single-line
                     class="pa-0"
@@ -124,6 +127,9 @@
                   required
                   v-model="UpdatePassword.NewPassword"
                   :rules="[rules.required]"
+                  :append-icon="newPassVis ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="() => (newPassVis = !newPassVis)"
+                  :type="newPassVis ? 'password' : 'text'"
                   hide-details
                   single-line
                   class="pa-0"
@@ -138,6 +144,7 @@
                   v-model="UpdatePassword.RepeatPassword"
                   :rules="[rules.required]"
                   hide-details
+                  type="password"
                   single-line
                   class="pa-0"
                   label="Repeat Password"
@@ -184,6 +191,8 @@ export default {
   components: { SideBar },
   data() {
     return {
+      newPassVis: String,
+      newUserVis: String,
       RegisterInfo: {
         Username: null,
         Email: null,

@@ -23,7 +23,14 @@
         </div>
       </v-card>
     </v-card>
-    <v-card height="50vh"> GRAPHS HERE </v-card>
+    <v-card height="50vh">
+      GRAPHS HERE
+      <v-row>
+        <v-col cols="4"> </v-col>
+        <v-col cols="4"></v-col>
+        <v-col cols="4"></v-col>
+      </v-row>
+    </v-card>
   </v-main>
 </template>
 
