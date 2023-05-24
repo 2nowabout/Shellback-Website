@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     getTimeOfDay: function () {
-      var data = [
+      let data = [
           [22, "Working Late!"],
           [18, "Good Evening!"],
           [12, "Good Afternoon!"],
@@ -127,7 +127,7 @@ export default {
           [0, "Whoa, Early Bird!"],
         ],
         hr = new Date().getHours();
-      for (var i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         if (hr >= data[i][0]) {
           return data[i][1];
         }

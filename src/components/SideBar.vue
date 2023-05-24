@@ -87,7 +87,6 @@ export default {
       this.$router.push("/settings");
     },
     doLogout() {
-      //TODO add logout logic
       this.$store.commit("logOut");
       this.$router.push("/");
     },

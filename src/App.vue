@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     cssProps() {
-      var themeColors = {};
+      const themeColors = {};
       if (this.$vuetify.theme.dark) {
         Object.keys(this.$vuetify.theme.themes.dark).forEach((color) => {
           themeColors[`--v-${color}`] = this.$vuetify.theme.themes.dark[color];
