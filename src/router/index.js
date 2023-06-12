@@ -5,6 +5,7 @@ import LoginPage from "../views/LoginPage.vue";
 import HomePage from "../views/HomePage.vue";
 import SettingsPage from "../views/SettingsPage.vue";
 import NotificationsPage from "../views/NotificationsPage.vue";
+import MachinesPage from "../views/MachinesPage.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,14 @@ const routes = [
     path: "/notifications",
     name: "Notifications",
     component: NotificationsPage,
+    meta: {
+      requireToken: true,
+    },
+  },
+  {
+    path: "/machines",
+    name: "Machines",
+    component: MachinesPage,
     meta: {
       requireToken: true,
     },

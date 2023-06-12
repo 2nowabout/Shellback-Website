@@ -32,6 +32,12 @@
         </v-list-item-icon>
         <v-list-item-title>Companies</v-list-item-title>
       </v-list-item>
+      <v-list-item link @click="toMachinePage()">
+        <v-list-item-icon>
+          <v-icon>mdi-desktop-classic</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Machines</v-list-item-title>
+      </v-list-item>
       <v-list-item link @click="toSettingsPage()">
         <v-list-item-icon>
           <v-icon>mdi-cog-outline</v-icon>
@@ -57,7 +63,7 @@ import ThemeSwitch from "./ThemeSwitch.vue";
 import VueJwtDecode from "vue-jwt-decode";
 export default {
   components: { ThemeSwitch },
-  name: "Sidebar",
+  name: "SideBar",
   data() {
     return {
       mini: true,
@@ -79,6 +85,9 @@ export default {
         // return error in production env
         console.log(error, "error from decoding token");
       }
+    },
+    toMachinePage() {
+      this.$router.push("/machines");
     },
     toCompanyPage() {
       this.$router.push("/home");

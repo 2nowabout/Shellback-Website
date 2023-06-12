@@ -8,14 +8,21 @@
 
 // /* eslint-disable import/no-extraneous-dependencies, global-require */
 // const webpack = require('@cypress/webpack-preprocessor')
+//const dotenv = require("dotenv");
 
 module.exports = (on, config) => {
-  // on('file:preprocessor', webpack({
-  //  webpackOptions: require('@vue/cli-service/webpack.config'),
-  //  watchOptions: {}
-  // }))
+  // const env = dotenv.config({ path: ".env" });
+
+  // if (env.error) {
+  //   throw env.error;
+  // }
+  // console.log(
+  //   "ENV FILE HERE _______________________________________________________________________"
+  // );
+  // console.log(env);
 
   return Object.assign({}, config, {
+    //env: env,
     fixturesFolder: "tests/e2e/fixtures",
     integrationFolder: "tests/e2e/specs",
     screenshotsFolder: "tests/e2e/screenshots",

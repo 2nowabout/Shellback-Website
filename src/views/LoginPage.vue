@@ -55,7 +55,7 @@
                 type="error"
                 style="width: 30vw; margin: auto; margin-bottom: 2%"
                 transition="scale-transition"
-                >This login is incorrect!</v-alert
+                >{{ this.error }}</v-alert
               >
               <v-btn
                 @click="login()"
@@ -76,7 +76,6 @@
 <script>
 import Vue from "vue";
 export default {
-  name: "Login",
   data() {
     return {
       passVis: String,
@@ -98,6 +97,15 @@ export default {
   components: {},
   methods: {
     async login() {
+      if (
+        this.userinfo.username == null ||
+        this.userinfo.username == "" ||
+        this.userinfo.password == null ||
+        this.userinfo.password == ""
+      ) {
+        this.error = "Please fill in all fields!";
+        return;
+      }
       this.error = false;
       let comp = this;
       // Validate code and set variable that authenticated is true
@@ -113,7 +121,7 @@ export default {
           }
         })
         .catch(function () {
-          comp.error = true;
+          comp.error = "This login is incorrect!";
         });
     },
   },

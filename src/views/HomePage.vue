@@ -55,9 +55,9 @@ export default {
             const timeDifference = currentTime - oldTime;
             const timeDifferenceInMinutes = timeDifference / (1000 * 60);
             if (timeDifferenceInMinutes > 2) {
-              item.status = false;
+              item.status = "Niet actief";
             } else {
-              item.status = true;
+              item.status = "Actief";
             }
             Vue.axios
               .get(
@@ -94,6 +94,7 @@ export default {
           align: "start",
           value: "companyname",
         },
+        { text: "Ip Adress", value: "ipadress", filterable: false },
         { text: "Status", value: "status", filterable: false },
         { text: "Notifications", value: "notifications", filterable: false },
         { text: "Start Date", value: "startdate", filterable: false },

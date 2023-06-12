@@ -7,10 +7,7 @@ export default new Vuex.Store({
   state: {
     jwtToken: null,
     employerWait: true,
-    chosenCompany: {
-      companyname: null,
-      ipadress: null,
-    },
+    chosenCompany: null,
   },
   getters: {
     getCode: (state) => state.logincode,
@@ -26,8 +23,7 @@ export default new Vuex.Store({
     },
     setCompany(state, value) {
       console.log("STORE IS STORING: " + value.ipadress);
-      state.chosenCompany.companyname = value.companyname;
-      state.chosenCompany.ipadress = value.ipadress;
+      state.chosenCompany = value;
     },
   },
   actions: {},

@@ -3,7 +3,46 @@
     <side-bar />
     <v-card height="50vh">
       <v-card-title style="padding: 0%">
-        <v-toolbar dense> All Notifications </v-toolbar>
+        <v-toolbar dense>
+          All Notifications from:
+          <v-text-field
+            v-model="companyName"
+            clearable
+            hide-details="true"
+            append-icon="mdi-pencil-outline"
+            @keyup.enter="updateName()"
+            style="
+              margin-left: 1%;
+              max-width: 20vw;
+              font-size: 1em;
+              vertical-align: middle;
+              max-height: 80%;
+            "
+          >
+          </v-text-field>
+          <div class="d-flex align-items-center">
+            <v-alert
+              :value="error"
+              dense
+              text
+              color="red"
+              type="error"
+              style="margin: auto; width: 20vw; margin-left: 1vw"
+              transition="scale-transition"
+              >{{ this.error }}</v-alert
+            >
+            <v-alert
+              :value="success"
+              dense
+              text
+              color="green"
+              type="success"
+              style="margin: auto; width: 20vw; margin-left: 1vw"
+              transition="scale-transition"
+              >{{ this.success }}</v-alert
+            >
+          </div>
+        </v-toolbar>
       </v-card-title>
       <v-card class="pa-4">
         <v-data-table
@@ -42,6 +81,8 @@ export default {
   data() {
     return {
       error: null,
+      success: null,
+      companyName: "",
       search: "",
       page: 1,
       pageCount: 0,
@@ -60,6 +101,7 @@ export default {
     };
   },
   mounted() {
+    this.companyName = this.$store.getters.getCompany.companyname;
     let comp = this;
     Vue.axios.defaults.headers.common["Authorization"] =
       `Bearer ` + this.$store.getters.getToken;
@@ -90,6 +132,31 @@ export default {
         comp.error = "Error loading notifications!";
       });
   },
-  methods: {},
+  methods: {
+    updateName() {
+      let comp = this;
+      this.success = null;
+      this.error = null;
+      let company = this.$store.getters.getCompany;
+      company.companyname = this.companyName;
+      console.log(company);
+      Vue.axios.defaults.headers.common["Authorization"] =
+        `Bearer ` + this.$store.getters.getToken;
+      Vue.axios
+        .post("http://localhost:8002/updateCompanyName", {
+          id: company.id,
+          companyname: company.companyname,
+          ipadress: company.ipadress,
+        })
+        .then(function (response) {
+          if (response.status == 200) {
+            comp.success = "Success!";
+          }
+        })
+        .catch(function () {
+          comp.error = "Error!";
+        });
+    },
+  },
 };
 </script>
