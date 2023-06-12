@@ -12,7 +12,7 @@ describe("root page loaded correctly", () => {
 describe("testing redirect on no JWT-token", () => {
   it("Testing redirection", () => {
     cy.visit("/home");
-    cy.url().should("eq", "http://localhost:8080/");
+    cy.url().should("eq", "http://localhost:8081/");
   });
 });
 
@@ -23,7 +23,7 @@ describe("testing wrong password login error", () => {
     cy.get("#input-13").type("login");
     cy.get(".v-btn").click();
     cy.contains(".v-alert__content", "This login is incorrect!");
-    cy.url().should("eq", "http://localhost:8080/");
+    cy.url().should("eq", "http://localhost:8081/");
   });
 });
 
@@ -38,6 +38,6 @@ describe("testing empty fields login attempt", () => {
 describe("testing login", () => {
   it("testing login logic", () => {
     LoginUtil.login();
-    cy.url().should("eq", "http://localhost:8080/home");
+    cy.url().should("eq", "http://localhost:8081/home");
   });
 });

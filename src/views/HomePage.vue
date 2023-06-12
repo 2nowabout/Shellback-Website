@@ -36,14 +36,15 @@ export default {
 
   mounted() {
     let comp = this;
+    let genitems;
     Vue.axios.defaults.headers.common["Authorization"] =
       `Bearer ` + this.$store.getters.getToken;
     Vue.axios
       .get("http://localhost:8002/getCompanies")
       .then(function (response) {
         if (response.status == 200) {
-          let genitems = response.data;
-          genitems.forEach((item) => {
+          genitems = response.data;
+          genitems.forEach(async (item) => {
             const date = new Date(item.startdate);
             item.startdate = date.toLocaleDateString(undefined, {
               year: "numeric",
@@ -59,7 +60,7 @@ export default {
             } else {
               item.status = "Actief";
             }
-            Vue.axios
+            await Vue.axios
               .get(
                 "http://localhost:8002/getCompany/notificationAmount/" +
                   item.ipadress
@@ -68,9 +69,6 @@ export default {
                 item.notifications = response.data;
                 comp.items = genitems;
               });
-          });
-          genitems.forEach((item) => {
-            console.log(item);
           });
         }
       })
